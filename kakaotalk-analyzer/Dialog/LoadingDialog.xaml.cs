@@ -50,7 +50,7 @@ namespace kakaotalk_analyzer.Dialog
                 TalkInstance.Instance.Open(filename);
                 Extends.Post(() => {
                     Message.Text = TalkInstance.Instance.Title;
-                    Message2.Text = "대화 분석 중 입니다...";
+                    Message2.Text = "대화를 분석 중입니다...";
                     Message2.Visibility = Visibility.Visible;
                 });
                 try

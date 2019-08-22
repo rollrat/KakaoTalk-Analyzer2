@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ProgressBar x:Name="CollectProgress" Grid.Row="0" Height="50" Width="50" Opacity=".56" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignCircularProgressBar}" IsIndeterminate="True"/>
-        <TextBlock x:Name="Message" Margin="0 8 0 0" Text="대화목록을 불러오는 중 입니다..." Grid.Row="1" FontSize="16" HorizontalAlignment="Center"/>
-        <TextBlock x:Name="Message2" Text="대화목록을 불러오는 중 입니다..." Grid.Row="2" FontSize="16" Visibility="Collapsed" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="Message" Margin="0 8 0 0" Text="대화목록을 불러오는 중입니다..." Grid.Row="1" FontSize="16" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="Message2" Text="대화목록을 불러오는 중입니다..." Grid.Row="2" FontSize="16" Visibility="Collapsed" HorizontalAlignment="Center"/>
     </Grid>
 </UserControl>
