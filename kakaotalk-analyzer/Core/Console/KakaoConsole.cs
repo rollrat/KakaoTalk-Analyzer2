@@ -32,6 +32,9 @@ namespace kakaotalk_analyzer.Core.Console
         [CommandLine("-message-analyze", CommandType.OPTION, Help = "use -message-analyze",
             Info = "Analyze messages.")]
         public bool MessageAnalyze;
+        [CommandLine("-extract-member", CommandType.OPTION, Help = "use -extract-member",
+            Info = "Analyze messages.")]
+        public bool ExtractMember;
     }
     
     public class KakaoConsole : IConsole
@@ -65,6 +68,10 @@ namespace kakaotalk_analyzer.Core.Console
             else if (option.MessageAnalyze)
             {
                 ProcessMessageAnalyze();
+            }
+            else if (option.ExtractMember)
+            {
+                ProcessExtractMember();
             }
 
             return true;
@@ -132,6 +139,23 @@ namespace kakaotalk_analyzer.Core.Console
 
             for (int i = 0; i < 1000; i++)
                 Console.Instance.WriteLine(ll[i].Key + $" ({ll[i].Value})");
+        }
+
+        static void ProcessExtractMember()
+        {
+            if (manager == null)
+            {
+                Console.Instance.WriteErrorLine("Parse talks file after parsing!");
+                return;
+            }
+
+            manager.ExtractMember();
+
+            var ll = manager.Members;
+            ll.Sort((x, y) => y.Talks.Count.CompareTo(x.Talks.Count));
+
+            for (int i = 0; i < 1000; i++)
+                Console.Instance.WriteLine(ll[i].Name + $" ({ll[i].Talks.Count})");
         }
     }
 }

@@ -80,7 +80,7 @@ namespace kakaotalk_analyzer.Core
         /// <summary>
         /// 처음시작시엔 디버그 모드에서만 모니터를 사용합니다.
         /// </summary>
-#if DEBUG
+#if false
         public bool controlEnable = true;
 #else
         public bool controlEnable = false;

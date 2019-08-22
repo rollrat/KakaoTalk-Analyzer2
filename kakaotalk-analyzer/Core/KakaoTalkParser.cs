@@ -18,11 +18,11 @@ namespace kakaotalk_analyzer.Core
 {
     public enum TalkState
     {
-        Message,
-        Append,
-        Enter,
-        Leave,
-        Error,
+        Message = 0,
+        Append = 1,
+        Enter = 2,
+        Leave = 3,
+        Error = 4,
     }
 
     public class Talk
@@ -55,6 +55,7 @@ namespace kakaotalk_analyzer.Core
             var current_year = 0;
             var current_month = 0;
             var current_day = 0;
+            var current_name = "";
 
             var date_regex = new Regex(@"--------------- (\d+)년 (\d+)월 (\d+)일 \w+ ---------------");
             var message_regex = new Regex(@"\s*\[(\w+) (\d+)\:(\d+)\]([\w\W]+)");
@@ -62,6 +63,7 @@ namespace kakaotalk_analyzer.Core
             var invite_regex = new Regex("(.*?)님이 (.*?)님을 초대하였습니다.");
             var in_regex = new Regex("(.*?)님이 들어왔습니다.");
             var out_regex = new Regex("(.*?)님이 나갔습니다.");
+            var ban_regex = new Regex("(.*?)님을 내보냈습니다.");
 
             for (int i = 3; i < lines.Length; i++, index_count++)
             {
@@ -117,35 +119,58 @@ namespace kakaotalk_analyzer.Core
                                 Content = tt[3].Trim(),
                                 Time = new DateTime(current_year, current_month, current_day, time, tt[2].ToInt(), 0)
                             });
+                            current_name = builder.ToString();
                         }
                         catch (Exception e)
                         {
                             if (Talks.Last().State == TalkState.Message || Talks.Last().State == TalkState.Append)
-                                Talks.Add(new Talk { State = TalkState.Append, Index = index_count, Content = line });
+                                Talks.Add(new Talk { State = TalkState.Append, Index = index_count, Content = line, Name = current_name });
                             else
                                 throw e;
                         }
                     }
                     else
                     {
-                        if (line.Contains("초대하였습니다"))
+                        if (line.Contains("님을 초대하였습니다"))
                         {
                             var pp = reg(line, invite_regex);
-                            Talks.Add(new Talk { State = TalkState.Enter, Name = pp[1] });
+                            if (pp[1].Contains(','))
+                            {
+                                pp[1].Split(',').ToList().ForEach(x => {
+                                    if (x.Trim().EndsWith("님"))
+                                        Talks.Add(new Talk { Index = index_count, State = TalkState.Enter, Name = x.Remove(x.Length - 1, 1).Trim() });
+                                    else
+                                        Talks.Add(new Talk { Index = index_count, State = TalkState.Enter, Name = x.Trim() });
+                                });
+                            }
+                            else
+                                Talks.Add(new Talk { Index = index_count, State = TalkState.Enter, Name = pp[1] });
                         }
-                        else if (line.Contains("들어왔습니다."))
+                        else if (line.Contains("님이 들어왔습니다."))
                         {
                             var pp = reg(line, in_regex);
-                            Talks.Add(new Talk { State = TalkState.Enter, Name = pp[0] });
+                            Talks.Add(new Talk { Index = index_count, State = TalkState.Enter, Name = pp[0] });
                         }
-                        else if (line.Contains("나갔습니다."))
+                        else if (line.Contains("님이 나갔습니다."))
                         {
                             var pp = reg(line, out_regex);
-                            Talks.Add(new Talk { State = TalkState.Leave, Name = pp[0] });
+                            Talks.Add(new Talk { Index = index_count, State = TalkState.Leave, Name = pp[0] });
+                        }
+                        else if (line.Contains("님을 내보냈습니다."))
+                        {
+                            var pp = reg(line, ban_regex);
+                            Talks.Add(new Talk { Index = index_count, State = TalkState.Leave, Name = pp[0] });
+                        }
+                        else if (line.Contains("채팅방 관리자가 메시지를 가렸습니다."))
+                        {
+                            // Nothing
                         }
                         else
                         {
-                            Talks.Add(new Talk { State = TalkState.Append, Index = index_count, Content = line });
+                            if (Talks.Last().State == TalkState.Message || Talks.Last().State == TalkState.Append)
+                                Talks.Add(new Talk { State = TalkState.Append, Index = index_count, Content = line, Name = current_name });
+                            else
+                                throw new Exception();
                         }
                     }
                 }
@@ -153,6 +178,7 @@ namespace kakaotalk_analyzer.Core
                 {
                     Talks.Add(new Talk { State = TalkState.Error, Index = index_count, Content = e.Message });
                     Monitor.Instance.Push("[Kakao] Message Parsing Error! Target=" + line + " Msg=" + e.Message + "\r\n" + e.StackTrace);
+                    throw e;
                 }
             }
 

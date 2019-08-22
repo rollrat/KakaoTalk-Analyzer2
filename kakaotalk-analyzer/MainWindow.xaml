@@ -4,9 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:kakaotalk_analyzer"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="카카오톡 대화분석기 0.1" Height="384" Width="525"
+        AllowDrop="True" Drop="Window_Drop" DragEnter="Window_DragEnter" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DialogHost.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <materialDesign:DialogHost x:Name="RootDialogHost" Identifier="Dialog" Language="ko-KR">
+        <Grid Margin="8">
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="Copyright (C) 2019. rollrat. All Rights Reserved."/>
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="여기에 대화목록 파일을 끌어 놓으세요!" FontSize="20" />
+        </Grid>
+    </materialDesign:DialogHost>
 </Window>
