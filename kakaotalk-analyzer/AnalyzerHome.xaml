@@ -181,6 +181,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     
                     <Grid.ColumnDefinitions>
@@ -203,8 +204,68 @@
                         </StackPanel>
                     </Button>
 
-                    <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Margin="8 0 0 0">
+                    <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="8 8 0 0">
+                        <TextBlock Text="분석 방법 선택" FontSize="14"/>
+                        <RadioButton x:Name="WAOption1" Content="형태소 분석기 사용" IsChecked="True" Margin="0 2 0 4">
+                            <RadioButton.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.MergedDictionaries>
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.RadioButton.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                                    </ResourceDictionary.MergedDictionaries>
+                                </ResourceDictionary>
+                            </RadioButton.Resources>
+                        </RadioButton>
+                        <CheckBox x:Name="WAOption5" Content="일반 명사 포함" Margin="16 4 0 0" IsChecked="False" IsEnabled="{Binding ElementName=WAOption1, Path=IsChecked}">
+                            <CheckBox.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.MergedDictionaries>
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                                    </ResourceDictionary.MergedDictionaries>
+                                </ResourceDictionary>
+                            </CheckBox.Resources>
+                        </CheckBox>
+                        <RadioButton x:Name="WAOption2" Content="띄어쓰기 구분으로만 분석" Margin="0 4 0 0">
+                            <RadioButton.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.MergedDictionaries>
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.RadioButton.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                                    </ResourceDictionary.MergedDictionaries>
+                                </ResourceDictionary>
+                            </RadioButton.Resources>
+                        </RadioButton>
+                        <CheckBox x:Name="WAOption3" Content="문장 기호 생략" Margin="16 4 0 0" IsChecked="True" IsEnabled="{Binding ElementName=WAOption2, Path=IsChecked}">
+                            <CheckBox.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.MergedDictionaries>
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                                    </ResourceDictionary.MergedDictionaries>
+                                </ResourceDictionary>
+                            </CheckBox.Resources>
+                        </CheckBox>
+                        <CheckBox x:Name="WAOption4" Content="숫자 생략" Margin="16 4 0 0" IsChecked="True" IsEnabled="{Binding ElementName=WAOption2, Path=IsChecked}">
+                            <CheckBox.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.MergedDictionaries>
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                                    </ResourceDictionary.MergedDictionaries>
+                                </ResourceDictionary>
+                            </CheckBox.Resources>
+                        </CheckBox>
+                    </StackPanel>
+
+                    <Grid Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Margin="8 0 0 0">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
@@ -217,9 +278,24 @@
                         <TextBlock Text="진행도: "  Grid.Column="0" Grid.Row="0" FontSize="14" Margin="0 0 0 4"/>
                         <TextBlock x:Name="ProgressLabel" Text="[0/0]"  Grid.Column="1" Grid.Row="0" FontSize="14" HorizontalAlignment="Left"/>
                         <ProgressBar x:Name="Progress" Grid.Row="1" Grid.ColumnSpan="2" Height="30" Width="200" Foreground="Pink" Maximum="0" Value="0"/>
+                        <Button x:Name="KeywordButton2" Grid.Row="2" Grid.ColumnSpan="2" Margin="0 4 0 0" Click="KeywordButton2_Click" Width="200">
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.MergedDictionaries>
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"/>
+                                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
+                                    </ResourceDictionary.MergedDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="CalendarMonth"  Height="17" Width="17" Opacity=".56" VerticalAlignment="Center"/>
+                                <TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="월별 키워드"/>
+                            </StackPanel>
+                        </Button>
+
                     </Grid>
 
-                    <DataGrid x:Name="KeywordList" Grid.Column="0" Grid.RowSpan="2" Grid.Row="0" ItemsSource="{Binding Items}" CanUserSortColumns="True" IsReadOnly="True" AutoGenerateColumns="False"
+                    <DataGrid x:Name="KeywordList" Grid.Column="0" Grid.RowSpan="3" Grid.Row="0" ItemsSource="{Binding Items}" CanUserSortColumns="True" IsReadOnly="True" AutoGenerateColumns="False"
                         SelectionMode="Single" SelectionUnit="FullRow" IsSynchronizedWithCurrentItem="True" Background="Transparent"
                         GridLinesVisibility="All" RowHeight="22"
                         CanUserAddRows="False" materialDesign:DataGridAssist.CellPadding="4 2 2 2" materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2">

@@ -104,7 +104,7 @@ namespace kakaotalk_analyzer
                     유형 = type[(int)talk.State],
                     내용 = talk.Content ?? "",
                     작성자 = talk.State == TalkState.Append ? "" : talk.Name ?? "",
-                    날짜 = talk.Time != new DateTime() ? talk.Time.ToString() : "",
+                    날짜 = talk.State != TalkState.Append && talk.Time != new DateTime() ? talk.Time.ToString() : "",
                     Talk = talk
                 });
             }
@@ -148,11 +148,30 @@ namespace kakaotalk_analyzer
 
         }
 
+        private void keyword_control(bool isenabled)
+        {
+            KeywordButton.IsEnabled = isenabled;
+            KeywordButton2.IsEnabled = isenabled;
+            WAOption1.IsEnabled = isenabled;
+            WAOption2.IsEnabled = isenabled;
+            WAOption3.IsEnabled = isenabled;
+            WAOption4.IsEnabled = isenabled;
+            WAOption5.IsEnabled = isenabled;
+        }
+
         private async void KeywordButton_Click(object sender, RoutedEventArgs e)
         {
-            KeywordButton.IsEnabled = false;
+            keyword_control(false);
+
+            var keywordlistdc = KeywordList.DataContext as KeywordListViewModel;
+            keywordlistdc.Items.Clear();
 
             Progress.Maximum = TalkInstance.Instance.Manager.Talks.Count;
+
+            var op1 = WAOption1.IsChecked.Value;
+            var op3 = WAOption3.IsChecked.Value;
+            var op4 = WAOption4.IsChecked.Value;
+            var op5 = WAOption5.IsChecked.Value;
 
             await Task.Run(() =>
             {
@@ -163,14 +182,13 @@ namespace kakaotalk_analyzer
                         Progress.Value = x;
                         ProgressLabel.Text = $"[{Progress.Value.ToString("#,0")}/{Progress.Maximum.ToString("#,0")}]";
                     });
-                });
+                }, op1, op5, op3, op4);
             });
 
 
             var ll = TalkInstance.Instance.Manager.Words.ToList();
             ll.Sort((x, y) => y.Value.CompareTo(x.Value));
 
-            var keywordlistdc = KeywordList.DataContext as KeywordListViewModel;
             for (int i = 0; i < ll.Count; i++)
             {
                 keywordlistdc.Items.Add(new KeywordListItemViewModel
@@ -180,6 +198,36 @@ namespace kakaotalk_analyzer
                     개수 = ll[i].Value.ToString("#,0"),
                 });
             }
+
+            keyword_control(true);
+        }
+
+        private async void KeywordButton2_Click(object sender, RoutedEventArgs e)
+        {
+            keyword_control(false);
+
+            Progress.Maximum = TalkInstance.Instance.Manager.Talks.Count;
+
+            var op1 = WAOption1.IsChecked.Value;
+            var op3 = WAOption3.IsChecked.Value;
+            var op4 = WAOption4.IsChecked.Value;
+            var op5 = WAOption5.IsChecked.Value;
+
+            await Task.Run(() =>
+            {
+                TalkInstance.Instance.Manager.StartAllMessageAnalyzeByDate(x =>
+                {
+                    Extends.Post(() =>
+                    {
+                        Progress.Value = x;
+                        ProgressLabel.Text = $"[{Progress.Value.ToString("#,0")}/{Progress.Maximum.ToString("#,0")}]";
+                    });
+                }, op1, op5, op3, op4);
+            });
+
+            (new MonthlyKeywords()).Show();
+
+            keyword_control(true);
         }
     }
 }

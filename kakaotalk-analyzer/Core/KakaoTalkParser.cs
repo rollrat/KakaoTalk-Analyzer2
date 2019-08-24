@@ -57,6 +57,8 @@ namespace kakaotalk_analyzer.Core
             var current_day = 0;
             var current_name = "";
 
+            var latest_time = DateTime.Now;
+
             var date_regex = new Regex(@"--------------- (\d+)년 (\d+)월 (\d+)일 \w+ ---------------");
             var message_regex = new Regex(@"\s*\[(\w+) (\d+)\:(\d+)\]([\w\W]+)");
 
@@ -111,20 +113,21 @@ namespace kakaotalk_analyzer.Core
                             else if (time == 12)
                                 time = 0;
 
+                            latest_time = new DateTime(current_year, current_month, current_day, time, tt[2].ToInt(), 0);
                             Talks.Add(new Talk
                             {
                                 State = TalkState.Message,
                                 Index = index_count,
                                 Name = builder.ToString(),
                                 Content = tt[3].Trim(),
-                                Time = new DateTime(current_year, current_month, current_day, time, tt[2].ToInt(), 0)
+                                Time = latest_time
                             });
                             current_name = builder.ToString();
                         }
                         catch (Exception e)
                         {
                             if (Talks.Last().State == TalkState.Message || Talks.Last().State == TalkState.Append)
-                                Talks.Add(new Talk { State = TalkState.Append, Index = index_count, Content = line, Name = current_name });
+                                Talks.Add(new Talk { State = TalkState.Append, Index = index_count, Content = line, Name = current_name, Time = latest_time });
                             else
                                 throw e;
                         }
@@ -168,7 +171,7 @@ namespace kakaotalk_analyzer.Core
                         else
                         {
                             if (Talks.Last().State == TalkState.Message || Talks.Last().State == TalkState.Append)
-                                Talks.Add(new Talk { State = TalkState.Append, Index = index_count, Content = line, Name = current_name });
+                                Talks.Add(new Talk { State = TalkState.Append, Index = index_count, Content = line, Name = current_name, Time = latest_time });
                             else
                                 throw new Exception();
                         }
