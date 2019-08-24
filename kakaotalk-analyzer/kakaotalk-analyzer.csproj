@@ -193,6 +193,9 @@
     <Compile Include="Dialog\LoadingDialog.xaml.cs">
       <DependentUpon>LoadingDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Member.xaml.cs">
+      <DependentUpon>Member.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\DataGridSorter.cs" />
     <Compile Include="Model\KeywordListViewModel.cs" />
     <Compile Include="Model\MemberListViewModel.cs" />
@@ -234,6 +237,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Member.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MonthlyKeywords.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

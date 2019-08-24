@@ -8,7 +8,12 @@
         mc:Ignorable="d"
         Title="월별 키워드" Height="936" Width="1319" WindowStartupLocation="CenterScreen">
     <Grid>
-        <lvc:CartesianChart x:Name="Chart" Grid.Row="1" 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <lvc:CartesianChart x:Name="Chart" Grid.Row="0" 
                             DisableAnimations="True"
                             Series="{Binding Series}"
                             Hoverable="True"
@@ -32,5 +37,16 @@
                 </lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
+
+        <Slider x:Name="Slider" ValueChanged="Slider_ValueChanged" IsSnapToTickEnabled="true"  Margin="4" Grid.Row="1" TickFrequency="1" Width="600" Maximum="100" Minimum="1" Value="30">
+            <Slider.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml"/>
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml"/>
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </Slider.Resources>
+        </Slider>
     </Grid>
 </Window>

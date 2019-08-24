@@ -381,6 +381,7 @@ namespace kakaotalk_analyzer.Core
             }
 
             Members = members.Select(x => x.Value).ToList();
+            Members.Sort((x, y) => x.Id.CompareTo(y.Id));
         }
 
         #endregion

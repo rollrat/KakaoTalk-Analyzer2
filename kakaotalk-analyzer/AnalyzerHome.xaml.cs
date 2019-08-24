@@ -8,6 +8,8 @@
 
 using kakaotalk_analyzer.Core;
 using kakaotalk_analyzer.Model;
+using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +49,9 @@ namespace kakaotalk_analyzer
             KeywordList.Sorting += new DataGridSortingEventHandler(new DataGridSorter<KeywordListItemViewModel>(KeywordList).SortHandler);
             KeywordList.VerticalGridLinesBrush = KeywordList.HorizontalGridLinesBrush;
         }
+
+        public string[] Labels { get; set; }
+        public string[] Labels2 { get; set; }
 
         bool loaded = false;
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -134,7 +139,55 @@ namespace kakaotalk_analyzer
                     마지막대화 = lt,
                 });
             }
+
+            var Series2 = new SeriesCollection();
+            var dayday = new int[24];
+
+            foreach (var talk in TalkInstance.Instance.Manager.Talks)
+            {
+                if (talk.State == TalkState.Message)
+                    dayday[talk.Time.Hour]++;
+            }
+
+            Series2.Add(new LineSeries
+            {
+                Title = "",
+                Values = new ChartValues<int>(dayday),
+                Fill = new SolidColorBrush
+                {
+                    Color = Colors.Pink,
+                    Opacity = .4
+                },
+                Stroke = Brushes.Pink,
+                LineSmoothness = 0.7,
+                PointGeometrySize = 10,
+            });
+
+            Labels2 = Enumerable.Range(0, 24).Select(x => x.ToString()).ToArray();
+            DailyChart.Series = Series2;
+
+            DataContext = this;
+
+            var Series = new SeriesCollection();
             
+            Series.Add(new LineSeries
+            {
+                Title = "",
+                Values = new ChartValues<int>(week),
+                Fill = new SolidColorBrush
+                {
+                    Color = Colors.Pink,
+                    Opacity = .4
+                },
+                Stroke = Brushes.Pink,
+                LineSmoothness = 0.7,
+                PointGeometrySize = 10,
+            });
+
+            Labels = "일월화수목금토".Select(x => x.ToString()).ToArray();
+            WeeklyChart.Series = Series;
+
+
             MainWindow.Instance.Close();
         }
         
@@ -145,18 +198,21 @@ namespace kakaotalk_analyzer
 
         private void MemberList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            if (MemberList.SelectedItem != null)
+            {
+                (new Member((MemberList.SelectedItem as MemberListItemViewModel).아이디.ToInt())).Show();
+            }
         }
 
         private void keyword_control(bool isenabled)
         {
             KeywordButton.IsEnabled = isenabled;
             KeywordButton2.IsEnabled = isenabled;
-            WAOption1.IsEnabled = isenabled;
-            WAOption2.IsEnabled = isenabled;
-            WAOption3.IsEnabled = isenabled;
-            WAOption4.IsEnabled = isenabled;
-            WAOption5.IsEnabled = isenabled;
+            //WAOption1.IsEnabled = isenabled;
+            //WAOption2.IsEnabled = isenabled;
+            //WAOption3.IsEnabled = isenabled;
+            //WAOption4.IsEnabled = isenabled;
+            //WAOption5.IsEnabled = isenabled;
         }
 
         private async void KeywordButton_Click(object sender, RoutedEventArgs e)

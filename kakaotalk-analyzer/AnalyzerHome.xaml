@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:kakaotalk_analyzer"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="카카오톡 분석기 - " Height="417" Width="912" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     
@@ -27,12 +28,14 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="총 대화 수:" HorizontalAlignment="Right"/>
@@ -40,7 +43,7 @@
                     <TextBlock Grid.Row="0" Grid.Column="2" Margin="4 0 0 0" Text="개" HorizontalAlignment="Left"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="대화 참여자 수:" HorizontalAlignment="Right"/>
                     <TextBlock Grid.Row="1" Grid.Column="1" Margin="4 0 0 0" Text="1" HorizontalAlignment="Right" x:Name="L2"/>
-                    <TextBlock Grid.Row="1" Grid.Column="3" Margin="4 0 0 0" Text="명" HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Margin="4 0 0 0" Text="명" HorizontalAlignment="Left"/>
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="" HorizontalAlignment="Right"/>
                     <TextBlock Grid.Row="3" Grid.Column="0" Text="일 평균 대화:" HorizontalAlignment="Right"/>
                     <TextBlock Grid.Row="3" Grid.Column="1" Margin="4 0 0 0" Text="1" HorizontalAlignment="Right" x:Name="L3"/>
@@ -66,6 +69,59 @@
                     <TextBlock Grid.Row="12" Grid.Column="0" Text="평균 대화 길이:" HorizontalAlignment="Right"/>
                     <TextBlock Grid.Row="12" Grid.Column="1" Margin="4 0 0 0" Text="1" HorizontalAlignment="Right" x:Name="L11"/>
                     <TextBlock Grid.Row="12" Grid.Column="2" Margin="4 0 0 0" Text="글자" HorizontalAlignment="Left"/>
+
+                    <Grid Grid.Column="3" Grid.RowSpan="14" Margin="32 0 0 64">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        
+                        <lvc:CartesianChart x:Name="WeeklyChart" Grid.Row="0"
+                            DisableAnimations="True"
+                            Hoverable="True"
+                            Zoom="X">
+                            <lvc:CartesianChart.DataTooltip>
+                                <lvc:DefaultTooltip SelectionMode="OnlySender" ShowTitle="False"/>
+                            </lvc:CartesianChart.DataTooltip>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis x:Name="AxisY" Title="톡 개수" MinValue="0">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis x:Name="AxisX" Labels="{Binding Labels}">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1"/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                        </lvc:CartesianChart>
+
+                        <lvc:CartesianChart x:Name="DailyChart" Grid.Row="1"
+                            DisableAnimations="True"
+                            Hoverable="True"
+                            Zoom="X">
+                            <lvc:CartesianChart.DataTooltip>
+                                <lvc:DefaultTooltip SelectionMode="OnlySender" ShowTitle="False"/>
+                            </lvc:CartesianChart.DataTooltip>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="톡 개수" MinValue="0">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Labels="{Binding Labels2}">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1"/>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                        </lvc:CartesianChart>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="모든 대화">
