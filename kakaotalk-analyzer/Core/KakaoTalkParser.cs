@@ -72,14 +72,7 @@ namespace kakaotalk_analyzer.Core
                 var line = lines[i];
                 try
                 {
-                    if (line.StartsWith("---------------"))
-                    {
-                        var dt = reg(line, date_regex);
-                        current_year = dt[0].ToInt();
-                        current_month = dt[1].ToInt();
-                        current_day = dt[2].ToInt();
-                    }
-                    else if (line.StartsWith("["))
+                    if (line.StartsWith("["))
                     {
                         try
                         {
@@ -131,6 +124,13 @@ namespace kakaotalk_analyzer.Core
                             else
                                 throw e;
                         }
+                    }
+                    else if(line.StartsWith("---------------") && date_regex.Match(line).Success)
+                    {
+                        var dt = reg(line, date_regex);
+                        current_year = dt[0].ToInt();
+                        current_month = dt[1].ToInt();
+                        current_day = dt[2].ToInt();
                     }
                     else
                     {
