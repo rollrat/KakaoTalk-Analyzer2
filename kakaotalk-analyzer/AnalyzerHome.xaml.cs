@@ -99,7 +99,7 @@ namespace kakaotalk_analyzer
             L10.Text = total_length.ToString("#,0");
             L11.Text = (total_length / (double)TalkInstance.Instance.Manager.Talks.Where(x => x.State == TalkState.Message).Count()).ToString("#,0.##");
 
-            var type = new string[] { "메시지", "", "들어옴", "나감", "오류" };
+            var type = new string[] { "메시지", "", "들어옴", "나감", "오류", "공유함" };
             var talklistdc = TalkList.DataContext as TalkListViewModel;
             foreach (var talk in TalkInstance.Instance.Manager.Talks)
             {
