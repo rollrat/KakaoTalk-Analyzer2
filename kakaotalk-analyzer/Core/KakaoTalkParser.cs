@@ -34,7 +34,7 @@ namespace kakaotalk_analyzer.Core
         public string Name { get; set; }
         public string Content { get; set; }
     }
-    
+
     public class KakaoTalkParser
     {
         public KakaoTalkParser(string filename)
@@ -46,6 +46,21 @@ namespace kakaotalk_analyzer.Core
         public string Title { get; }
 
         string[] lines;
+
+        Dictionary<string, int> month_eng = new Dictionary<string, int> {
+            {"January", 1 },
+            {"February", 2 },
+            {"March", 3 },
+            {"April", 4 },
+            {"May", 5 },
+            {"June", 6 },
+            {"July", 7 },
+            {"August", 8 },
+            {"September", 9 },
+            {"October", 10 },
+            {"November", 11 },
+            {"December", 12 },
+        };
 
         public List<Talk> Talks { get; set; }
 
@@ -61,6 +76,7 @@ namespace kakaotalk_analyzer.Core
             var latest_time = DateTime.Now;
 
             var date_regex = new Regex(@"--------------- (\d+)년 (\d+)월 (\d+)일 \w+ ---------------");
+            var date_eng_regex = new Regex(@"--------------- \w+, (\w+) (\d+), (\d+) ---------------");
             var message_regex = new Regex(@"\s*\[(\w+) (\d+)\:(\d+)\]([\w\W]+)");
 
             var invite_regex = new Regex(@"(.*?)님이 (.*?)님을 초대하였습니다\.");
@@ -68,13 +84,14 @@ namespace kakaotalk_analyzer.Core
             var out_regex = new Regex(@"(.*?)님이 나갔습니다\.");
             var ban_regex = new Regex(@"(.*?)님을 내보냈습니다\.");
             var share_regex = new Regex(@"(.*?)님이 포스트를 공유했습니다\.");
+            var shared_regex = new Regex(@"(.*?)님의 포스트가 공유되었습니다\.");
 
             for (int i = 3; i < lines.Length; i++, index_count++)
             {
                 var line = lines[i];
                 try
                 {
-                    if (line.StartsWith("["))
+                    if (line.Length > 0 && line.StartsWith("["))
                     {
                         try
                         {
@@ -127,12 +144,19 @@ namespace kakaotalk_analyzer.Core
                                 throw e;
                         }
                     }
-                    else if(line.StartsWith("---------------") && date_regex.Match(line).Success)
+                    else if (line.StartsWith("---------------") && date_regex.Match(line).Success)
                     {
                         var dt = reg(line, date_regex);
                         current_year = dt[0].ToInt();
                         current_month = dt[1].ToInt();
                         current_day = dt[2].ToInt();
+                    }
+                    else if (line.StartsWith("---------------") && date_eng_regex.Match(line).Success)
+                    {
+                        var dt = reg(line, date_eng_regex);
+                        current_year = dt[2].ToInt();
+                        current_month = month_eng[dt[0]];
+                        current_day = dt[1].ToInt();
                     }
                     else
                     {
@@ -169,6 +193,11 @@ namespace kakaotalk_analyzer.Core
                         else if (line.Contains("님이 포스트를 공유했습니다."))
                         {
                             var pp = reg(line, share_regex);
+                            Talks.Add(new Talk { Index = index_count, State = TalkState.Share, Name = pp[0] });
+                        }
+                        else if (line.Contains("님의 포스트가 공유되었습니다."))
+                        {
+                            var pp = reg(line, shared_regex);
                             Talks.Add(new Talk { Index = index_count, State = TalkState.Share, Name = pp[0] });
                         }
                         else if (line.Contains("채팅방 관리자가 메시지를 가렸습니다."))
