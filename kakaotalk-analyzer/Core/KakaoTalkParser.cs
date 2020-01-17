@@ -75,7 +75,7 @@ namespace kakaotalk_analyzer.Core
 
             var latest_time = DateTime.Now;
 
-            var date_regex = new Regex(@"--------------- (\d+)년 (\d+)월 (\d+)일 \w+ ---------------");
+            var date_regex = new Regex(@"--------------- (\d+)년 (\d+)월 (\d+)일 (\w+ )?---------------");
             var date_eng_regex = new Regex(@"--------------- \w+, (\w+) (\d+), (\d+) ---------------");
             var message_regex = new Regex(@"\s*\[(\w+) (\d+)\:(\d+)\]([\w\W]+)");
 
