@@ -200,7 +200,11 @@ namespace kakaotalk_analyzer.Core
                             var pp = reg(line, shared_regex);
                             Talks.Add(new Talk { Index = index_count, State = TalkState.Share, Name = pp[0] });
                         }
-                        else if (line.Contains("채팅방 관리자가 메시지를 가렸습니다."))
+                        else if (line.Contains("채팅방 관리자가 메시지를 가렸습니다.") || 
+                            line.Contains("불법촬영물 등 식별 및 게재제한 조치 안내") ||
+                            line.Contains("불법촬영물등 식별 및 게재제한 조치 안내") ||
+                            line.Contains("그룹 오픈채팅방에서 동영상・압축파일 전송 시 전기통신사업법에 따라 방송통신심의위원회에서 불법촬영물등으로 심의・의결한 정보에 해당하는지를 비교・식별 후 전송을 제한하는 조치가 적용됩니다. 불법촬영물등을 전송할 경우 관련 법령에 따라 처벌받을 수 있사오니 서비스 이용 시 유의하여 주시기 바랍니다.")
+                            )
                         {
                             // Nothing
                         }

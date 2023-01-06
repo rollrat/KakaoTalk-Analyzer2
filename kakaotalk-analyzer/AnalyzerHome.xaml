@@ -10,7 +10,7 @@
         Title="카카오톡 분석기 - " Height="417" Width="912" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     
     <Grid Margin="8">
-        <TextBlock Text="Copyright (C) 2019. rollrat. All Rights Reserved." HorizontalAlignment="Right"/>
+        <TextBlock Text="Copyright (C) 2019-2022. rollrat. All Rights Reserved." HorizontalAlignment="Right"/>
         <TabControl>
             <TabItem Header="요약">
                 <Grid Margin="4">
@@ -139,28 +139,28 @@
                         </ResourceDictionary>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding 인덱스}" Width="70" Header="인덱스"
+                        <materialDesign:DataGridTextColumn Binding="{Binding 인덱스}" Width="70" Header="인덱스"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" SortDirection="Descending"/>
-                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding 유형}" Width="50" Header="유형" 
+                        <materialDesign:DataGridTextColumn Binding="{Binding 유형}" Width="50" Header="유형" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                            <materialDesign:MaterialDataGridTextColumn.ElementStyle>
+                            <materialDesign:DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                 </Style>
-                            </materialDesign:MaterialDataGridTextColumn.ElementStyle>
-                        </materialDesign:MaterialDataGridTextColumn>
-                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding 작성자}" Width="100" Header="작성자" 
+                            </materialDesign:DataGridTextColumn.ElementStyle>
+                        </materialDesign:DataGridTextColumn>
+                        <materialDesign:DataGridTextColumn Binding="{Binding 작성자}" Width="100" Header="작성자" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding 내용}" Width="430" Header="내용" 
+                        <materialDesign:DataGridTextColumn Binding="{Binding 내용}" Width="430" Header="내용" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                        <materialDesign:MaterialDataGridTextColumn Binding="{Binding 날짜}" Width="170" Header="날짜" 
+                        <materialDesign:DataGridTextColumn Binding="{Binding 날짜}" Width="170" Header="날짜" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                            <materialDesign:MaterialDataGridTextColumn.ElementStyle>
+                            <materialDesign:DataGridTextColumn.ElementStyle>
                                 <Style TargetType="TextBlock">
                                     <Setter Property="HorizontalAlignment" Value="Center" />
                                 </Style>
-                            </materialDesign:MaterialDataGridTextColumn.ElementStyle>
-                        </materialDesign:MaterialDataGridTextColumn>
+                            </materialDesign:DataGridTextColumn.ElementStyle>
+                        </materialDesign:DataGridTextColumn>
                     </DataGrid.Columns>
                     <DataGrid.CellStyle>
                         <Style TargetType="DataGridCell">
@@ -192,30 +192,30 @@
                             </ResourceDictionary>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding 아이디}" Width="70" Header="아이디"
+                            <materialDesign:DataGridTextColumn Binding="{Binding 아이디}" Width="70" Header="아이디"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" SortDirection="Descending"/>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding 이름}" Width="100" Header="이름" 
+                            <materialDesign:DataGridTextColumn Binding="{Binding 이름}" Width="100" Header="이름" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding 대화수}" Width="70" Header="대화 수" 
+                            <materialDesign:DataGridTextColumn Binding="{Binding 대화수}" Width="70" Header="대화 수" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding 평균대화길이}" Width="100" Header="평균 대화 길이"
+                            <materialDesign:DataGridTextColumn Binding="{Binding 평균대화길이}" Width="100" Header="평균 대화 길이"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding 첫번째대화}" Width="170" Header="첫 번째 대화" 
+                            <materialDesign:DataGridTextColumn Binding="{Binding 첫번째대화}" Width="170" Header="첫 번째 대화" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                                <materialDesign:MaterialDataGridTextColumn.ElementStyle>
+                                <materialDesign:DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="HorizontalAlignment" Value="Center" />
                                     </Style>
-                                </materialDesign:MaterialDataGridTextColumn.ElementStyle>
-                            </materialDesign:MaterialDataGridTextColumn>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding 마지막대화}" Width="170" Header="마지막 대화" 
+                                </materialDesign:DataGridTextColumn.ElementStyle>
+                            </materialDesign:DataGridTextColumn>
+                            <materialDesign:DataGridTextColumn Binding="{Binding 마지막대화}" Width="170" Header="마지막 대화" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                                <materialDesign:MaterialDataGridTextColumn.ElementStyle>
+                                <materialDesign:DataGridTextColumn.ElementStyle>
                                     <Style TargetType="TextBlock">
                                         <Setter Property="HorizontalAlignment" Value="Center" />
                                     </Style>
-                                </materialDesign:MaterialDataGridTextColumn.ElementStyle>
-                            </materialDesign:MaterialDataGridTextColumn>
+                                </materialDesign:DataGridTextColumn.ElementStyle>
+                            </materialDesign:DataGridTextColumn>
                         </DataGrid.Columns>
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
@@ -365,11 +365,11 @@
                             </ResourceDictionary>
                         </DataGrid.Resources>
                         <DataGrid.Columns>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding 순위}" Width="70" Header="순위" 
+                            <materialDesign:DataGridTextColumn Binding="{Binding 순위}" Width="70" Header="순위" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" SortDirection="Descending"/>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding 키워드}" Width="200" Header="키워드"
+                            <materialDesign:DataGridTextColumn Binding="{Binding 키워드}" Width="200" Header="키워드"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                            <materialDesign:MaterialDataGridTextColumn Binding="{Binding 개수}" Width="100" Header="언급수" 
+                            <materialDesign:DataGridTextColumn Binding="{Binding 개수}" Width="100" Header="언급수" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
                         </DataGrid.Columns>
                         <DataGrid.CellStyle>

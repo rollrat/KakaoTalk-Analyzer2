@@ -39,26 +39,26 @@
                     </ResourceDictionary>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding 인덱스}" Width="70" Header="인덱스"
+                    <materialDesign:DataGridTextColumn Binding="{Binding 인덱스}" Width="70" Header="인덱스"
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" SortDirection="Descending"/>
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding 유형}" Width="50" Header="유형" 
+                    <materialDesign:DataGridTextColumn Binding="{Binding 유형}" Width="50" Header="유형" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                        <materialDesign:MaterialDataGridTextColumn.ElementStyle>
+                        <materialDesign:DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
                             </Style>
-                        </materialDesign:MaterialDataGridTextColumn.ElementStyle>
-                    </materialDesign:MaterialDataGridTextColumn>
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding 내용}" Width="430" Header="내용" 
+                        </materialDesign:DataGridTextColumn.ElementStyle>
+                    </materialDesign:DataGridTextColumn>
+                    <materialDesign:DataGridTextColumn Binding="{Binding 내용}" Width="430" Header="내용" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"/>
-                    <materialDesign:MaterialDataGridTextColumn Binding="{Binding 날짜}" Width="170" Header="날짜" 
+                    <materialDesign:DataGridTextColumn Binding="{Binding 날짜}" Width="170" Header="날짜" 
                                                                EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}">
-                        <materialDesign:MaterialDataGridTextColumn.ElementStyle>
+                        <materialDesign:DataGridTextColumn.ElementStyle>
                             <Style TargetType="TextBlock">
                                 <Setter Property="HorizontalAlignment" Value="Center" />
                             </Style>
-                        </materialDesign:MaterialDataGridTextColumn.ElementStyle>
-                    </materialDesign:MaterialDataGridTextColumn>
+                        </materialDesign:DataGridTextColumn.ElementStyle>
+                    </materialDesign:DataGridTextColumn>
                 </DataGrid.Columns>
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">

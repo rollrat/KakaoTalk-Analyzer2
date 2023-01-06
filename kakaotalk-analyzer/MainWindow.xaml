@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:kakaotalk_analyzer"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="카카오톡 대화분석기 0.1" Height="384" Width="525"
+        Title="카카오톡 대화분석기 1.6" Height="384" Width="525"
         AllowDrop="True" Drop="Window_Drop" DragEnter="Window_DragEnter" WindowStartupLocation="CenterScreen" Topmost="True">
 
     <Window.Resources>
@@ -19,7 +19,7 @@
 
     <materialDesign:DialogHost x:Name="RootDialogHost" Identifier="Dialog" Language="ko-KR">
         <Grid Margin="8">
-            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="Copyright (C) 2019. rollrat. All Rights Reserved."/>
+            <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="Copyright (C) 2019-2022. rollrat. All Rights Reserved."/>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="여기에 대화목록 파일을 끌어 놓으세요!" FontSize="20" />
         </Grid>
     </materialDesign:DialogHost>
